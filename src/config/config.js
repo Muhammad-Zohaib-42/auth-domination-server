@@ -1,0 +1,21 @@
+import "dotenv/config"
+
+const MONGODB_URI = process.env.MONGODB_URI
+const PORT = process.env.PORT
+const NODE_ENV = process.env.NODE_ENV
+const ORIGIN = process.env.ORIGIN
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
+const ACCESS_TOKEN_EXPIRY = process.env.ACCESS_TOKEN_EXPIRY
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
+const REFRESH_TOKEN_EXPIRY = process.env.REFRESH_TOKEN_EXPIRY
+
+export const config = {
+  MONGODB_URI,
+  PORT,
+  NODE_ENV,
+  ORIGIN,
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRY,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_EXPIRY
+}
