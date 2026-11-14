@@ -5,7 +5,7 @@ const router = Router();
 
 /**
  * @route POST /register
- * @description expects user avatar, name, username, email and password to register
+ * @desc Register a new user
  * @access public
  */
 router.post("/register", authControllers.registerUserController)

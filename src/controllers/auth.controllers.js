@@ -1,11 +1,17 @@
 import {asyncHandler} from "../utils/asyncHandler.utils.js"
 
 /**
- * @route POST /register
- * @desc register a new user, hash password, upload avatar, and send verification OTP
- * @access public
- * @param {avatar, name, username, email, password}
- * @returns {object} registration response
+ * Handles new user registration.
+ * 
+ * Validates the incoming user data, check if the email already exists, hashes the password, upload image on cloudinary, sends OTP to user email, and save a new user to database.
+ * 
+ * @param {string} req.body.avatar - The URL of users profile image
+ * @param {string} req.body.name - The full name of user
+ * @param {string} req.body.username - The unique username of the user
+ * @param {string} req.body.email - The unique email address of the user
+ * @param {string} req.body.password - The raw password to be hashed
+ * 
+ * @returns {Promise} Sends a 201 JSON response with the created user
  */
 export const registerUserController = asyncHandler(async (req, res) => {})
 
