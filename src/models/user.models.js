@@ -2,6 +2,10 @@ import {Schema, model} from "mongoose"
 import bcrypt from "bcrypt"
 
 const userSchema = new Schema({
+  avatar: {
+    type: String,
+    required: [true, "Avatar is required"]
+  },
   name: {
     type: String,
     required: [true, "Name is required"]
