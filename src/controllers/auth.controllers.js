@@ -1,4 +1,6 @@
 import {asyncHandler} from "../utils/asyncHandler.utils.js"
+import { registerUserControllerSchema } from "../validations/auth.validations.js"
+import {apiResponse} from "../utils/apiResponse.utils.js"
 
 /**
  * Handles new user registration.
@@ -13,7 +15,20 @@ import {asyncHandler} from "../utils/asyncHandler.utils.js"
  * 
  * @returns {Promise} Sends a 201 JSON response with the created user
  */
-export const registerUserController = asyncHandler(async (req, res) => {})
+export const registerUserController = asyncHandler(async (req, res) => {
+  const result = registerUserControllerSchema.safeParse(req.body)
+
+  if (!result.success) {
+    return res.status(400).json(
+      new apiResponse(400, result.error.flatten(), false)
+    )
+  }
+
+  const {avatar} = req
+  const {name, username, email, password} = result.data
+
+  
+})
 
 export const loginUserController = asyncHandler(async (req, res) => {})
 
