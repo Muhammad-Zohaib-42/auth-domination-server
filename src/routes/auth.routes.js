@@ -1,5 +1,6 @@
 import {Router} from "express";
 import * as authControllers from "../controllers/auth.controllers.js"
+import {upload} from "../middlewares/multer.middlewares.js"
 
 const router = Router();
 
@@ -8,7 +9,7 @@ const router = Router();
  * @desc Register a new user
  * @access public
  */
-router.post("/register", authControllers.registerUserController)
+router.post("/register", upload.single("avatar"), authControllers.registerUserController)
 
 /**
  * @route POST /login
