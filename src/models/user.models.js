@@ -1,5 +1,7 @@
 import {Schema, model} from "mongoose"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import { config } from "../config/config.js"
 
 const userSchema = new Schema({
   avatar: {
@@ -47,6 +49,35 @@ userSchema.pre("save", async function() {
 
 userSchema.methods.isPasswordCorrect = async function(password) {
   return await bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.generateAccessToken = function() {
+  return jwt.sign(
+    {
+      _id: this._id,
+      avatar: this.avatar,
+      name: this.name,
+      username: this.username,
+      email: this.email,
+      isVerified: this.isVerified
+    },
+    config.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: config.ACCESS_TOKEN_EXPIRY
+    }
+  )
+}
+
+userSchema.methods.generateRefreshToken = function() {
+  return jwt.sign(
+    {
+      _id: this._id
+    },
+    config.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: config.REFRESH_TOKEN_EXPIRY
+    }
+  )
 }
 
 export const userModel = model("User", userSchema)

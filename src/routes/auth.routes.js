@@ -13,21 +13,21 @@ router.post("/register", upload.single("avatar"), authControllers.registerUserCo
 
 /**
  * @route POST /login
- * @description expects user email and password to login
+ * @description Authenticate an existing user and login them in
  * @access public
  */
 router.post("/login", authControllers.loginUserController)
 
 /**
  * @route POST /verify-email
- * @description expects user email and otp to verify
+ * @description Verifies user email through OTP
  * @access public
  */
 router.post("/verify-email", authControllers.verifyEmailController)
 
 /**
  * @route POST /rotate-tokens
- * @description expects refresh token to rotate tokens
+ * @description Rotates the access and refresh token
  * @access private
  */
 router.post("/rotate-tokens", authControllers.rotateTokensController)

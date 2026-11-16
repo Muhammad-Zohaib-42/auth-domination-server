@@ -6,6 +6,10 @@ const sessionSchema = new Schema({
     ref: "User",
     required: [true, "User Id is required"]
   },
+  email: {
+    type: String,
+    required: [true, "Email is required"]
+  },
   refreshToken: {
     type: String,
     required: [true, "Refresh token is required"]

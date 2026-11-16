@@ -6,3 +6,13 @@ export const registerUserControllerSchema = z.object({
   email: z.string({error: "Email is required"}).email({error: "Please enter a valid email"}),
   password: z.string({error: "Password is required"}).min(8, "Password must be atleast 8 characters").max(50, "Password cannot exceed 50 characters")
 })
+
+export const loginUserControllerSchema = z.object({
+  email: z.string({error: "Email is required"}).email({error: "Please enter a valid email"}),
+  password: z.string({error: "Password is required"}).min(8, "Password must be atleast 8 characters").max(50, "Password cannot exceed 50 characters")
+})
+
+export const verifyEmailControllerSchema = z.object({
+  email: z.string({error: "Email is required"}).email({error: "Please enter a valid email"}),
+  otp: z.string({error: "OTP is required"})
+})

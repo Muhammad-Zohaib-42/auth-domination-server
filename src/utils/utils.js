@@ -163,3 +163,10 @@ export function generateOtpHtml(otp) {
     </html>
   `;
 }
+
+export function generateAccessAndRefreshToken(user) {
+  const accessToken = user.generateAccessToken()
+  const refreshToken = user.generateRefreshToken()
+
+  return {accessToken, refreshToken}
+}
