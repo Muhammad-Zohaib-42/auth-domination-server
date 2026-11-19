@@ -39,6 +39,14 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
     enum: [true, false]
+  },
+  passwordResetToken: {
+    type: String,
+    default: null
+  },
+  passwordResetTokenExpires: {
+    type: Date,
+    default: null
   }
 }, {timestamps: true})
 

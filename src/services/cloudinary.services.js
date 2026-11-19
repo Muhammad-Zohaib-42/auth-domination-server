@@ -10,7 +10,6 @@ cloudinary.config({
 export async function uploadOnCloudinary(filePath) {
   try {
     const result = await cloudinary.uploader.upload(filePath)
-    console.log(result)
     return result.secure_url
   } catch (error) {
     console.log(`image upload failed! error: ${error}`)

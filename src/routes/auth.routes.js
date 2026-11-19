@@ -1,6 +1,7 @@
 import {Router} from "express";
 import * as authControllers from "../controllers/auth.controllers.js"
 import {upload} from "../middlewares/multer.middlewares.js"
+import { authUser } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -34,79 +35,79 @@ router.post("/rotate-tokens", authControllers.rotateTokensController)
 
 /**
  * @route POST /logout
- * @description expects access token to logout user
+ * @description logout the user
  * @access private
  */
-router.post("/logout", authControllers.logoutUserController)
+router.post("/logout", authUser, authControllers.logoutUserController)
 
 /**
  * @route DELETE /delete
- * @description expects access token to delete user account
+ * @description deletes the user
  * @access private
  */
-router.delete("/delete", authControllers.deleteUserController)
+router.delete("/delete", authUser, authControllers.deleteUserController)
 
 /**
  * @route GET /get-me
- * @description expects access token to get user data
+ * @description returns the user data
  * @access private
  */
-router.get("/get-me", authControllers.getMeController)
+router.get("/get-me", authUser, authControllers.getMeController)
 
 /**
  * @route PATCH /update-profile
- * @description expects access token and user name and username to update user info
+ * @description updates user name and username
  * @access private
  */
-router.patch("/update-profile", authControllers.updateProfileController)
+router.patch("/update-profile", authUser, authControllers.updateProfileController)
 
 /**
  * @route PATCH /update-avatar
- * @description expects access token and user name and username to update user info
+ * @description update the avatar
  * @access private
  */
-router.patch("/update-avatar", authControllers.updateAvatarController)
+router.patch("/update-avatar", authUser, upload.single("avatar"), authControllers.updateAvatarController)
 
 /**
  * @route PATCH /update-password
- * @description expects access token and user old & new password to update the password
+ * @description updates user password
  * @access private
  */
-router.patch("/update-password", authControllers.updatePasswordController)
+router.patch("/update-password", authUser, authControllers.updatePasswordController)
 
 /**
  * @route POST /forgot-password
- * @description sends a verification otp on email and allow user to reset password
+ * @description Sends OTP verification email
  * @access public
  */
 router.post("/forgot-password", authControllers.forgotPasswordController)
 
 /**
  * @route POST /verify-reset-password-otp
- * @description expects reset password otp and verifies it and then allow user to reset password
+ * @description verifies otp
  * @access public
  */
 router.post("/verify-reset-password-otp", authControllers.verifyResetPasswordOtpController)
 
 /**
- * @route POST /reset-password
- * @description expects password and update user old password with new one
+ * @route PATCH /reset-password
+ * @description Resets User password
  * @access public
  */
-router.post("/reset-password", authControllers.resetPasswordController)
+router.patch("/reset-password", authControllers.resetPasswordController)
 
 /**
- * @route POST /reset-email
- * @description sends the otp to email for verification
+ * @route PATCH /reset-email
+ * @description verifies user email
  * @access private
  */
-router.post("/reset-email", authControllers.resetEmailController)
+router.patch("/reset-email", authUser, authControllers.resetEmailController)
 
 /**
  * @route PATCH /verify-reset-email-otp
- * @description verify email and update user email with new one
+ * @description verifies email
  * @access private
  */
-router.patch("/verify-reset-email-otp", authControllers.verifyResetEmailOtpController)
+router.patch("/verify-reset-email-otp", authUser, authControllers.verifyResetEmailOtpController)
 
 export default router;
