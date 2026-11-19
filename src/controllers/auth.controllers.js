@@ -34,14 +34,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     )
   }
 
-  const avatar = req.file
   const {name, username, email, password} = result.data
-
-  if (!avatar) {
-    return res.status(400).json(
-      new apiResponse(400, "Avatar is required", false)
-    )
-  }
 
   const existedUser = await userModel.findOne({
     $or: [{username}, {email}]
@@ -53,10 +46,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     )
   }
 
-  const avatarLiveUrl = await uploadOnCloudinary(avatar.path)
-
   const user = await userModel.create({
-    avatar: avatarLiveUrl,
     name, 
     username,
     email,
@@ -73,6 +63,7 @@ export const registerUserController = asyncHandler(async (req, res) => {
     new apiResponse(201, "User registered successfully", true, { 
       user: {
         _id: user._id,
+        avatar: user.avatar,
         name: user.name,
         username: user.username,
         email: user.email,

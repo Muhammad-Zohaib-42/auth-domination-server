@@ -5,8 +5,7 @@ import { config } from "../config/config.js"
 
 const userSchema = new Schema({
   avatar: {
-    type: String,
-    required: [true, "Avatar is required"]
+    type: String
   },
   name: {
     type: String,

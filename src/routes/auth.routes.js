@@ -10,7 +10,7 @@ const router = Router();
  * @desc Register a new user
  * @access public
  */
-router.post("/register", upload.single("avatar"), authControllers.registerUserController)
+router.post("/register", authControllers.registerUserController)
 
 /**
  * @route POST /login
