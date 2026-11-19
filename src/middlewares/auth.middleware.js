@@ -4,13 +4,15 @@ import { config } from "../config/config.js"
 import { userModel } from "../models/user.models.js"
 
 export async function authUser(req, res, next) {
-  const accessToken = req.headers["authorization"].split(" ")[1]
+  const fullAccessToken = req.headers["authorization"]
 
-  if (!accessToken) {
+  if (!fullAccessToken) {
     return res.status(400).json(
       new apiResponse(400, "Access Token is required", false)
     )
   }
+
+  const accessToken = fullAccessToken.split(" ")[1]
 
   let decoded = null
 

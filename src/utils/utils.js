@@ -9,7 +9,7 @@ export function generateOtpHtml(otp) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Verify your email - ApplyFlow</title>
+      <title>Verify your email - Auth Domination</title>
 
       <style>
         body {
@@ -124,7 +124,7 @@ export function generateOtpHtml(otp) {
       <div class="wrapper">
         <div class="container">
 
-          <h1 class="brand">ApplyFlow</h1>
+          <h1 class="brand">Auth Domination</h1>
 
           <h2>Verify your email</h2>
 
@@ -146,7 +146,7 @@ export function generateOtpHtml(otp) {
           </div>
 
           <p class="security">
-            If you didn't create an ApplyFlow account,
+            If you didn't create an Auth Domination account,
             you can safely ignore this email.
             Never share this verification code with anyone.
           </p>

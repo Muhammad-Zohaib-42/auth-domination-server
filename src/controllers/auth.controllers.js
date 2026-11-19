@@ -398,7 +398,7 @@ export const updateAvatarController = asyncHandler(async (req, res) => {
     )
   }
 
-  const liveAvatarUrl = await uploadOnCloudinary(file.path)
+  const liveAvatarUrl = await uploadOnCloudinary(avatar.path)
 
   user.avatar = liveAvatarUrl
   await user.save()
@@ -431,7 +431,9 @@ export const updatePasswordController = asyncHandler(async (req, res) => {
 
   const {oldPassword, newPassword} = result.data
 
-  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+  const userDoc = await userModel.findById(user._id).select("+password")
+
+  const isPasswordCorrect = await userDoc.isPasswordCorrect(oldPassword)
 
   if (!isPasswordCorrect) {
     return res.status(409).json(
@@ -439,8 +441,8 @@ export const updatePasswordController = asyncHandler(async (req, res) => {
     )
   }
 
-  user.password = newPassword
-  await user.save()
+  userDoc.password = newPassword
+  await userDoc.save()
 
   return res.status(200).json(
     new apiResponse(200, "Password updated successfully", true)
@@ -562,7 +564,7 @@ export const resetPasswordController = asyncHandler(async (req, res) => {
 
   const passwordResetTokenHash = crypto.createHash("sha256").update(passwordResetToken).digest("hex")
 
-  const user = userModel.findOne({passwordResetToken: passwordResetTokenHash}).select("+password")
+  const user = await userModel.findOne({passwordResetToken: passwordResetTokenHash}).select("+password")
 
   if (!user) {
     return res.status(409).json(
