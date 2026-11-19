@@ -1,5 +1,6 @@
 import {v2 as cloudinary} from "cloudinary"
 import { config } from "../config/config.js";
+import fs from "fs"
 
 cloudinary.config({ 
   cloud_name: config.CLOUDINARY_CLOUD_NAME, 
@@ -13,5 +14,7 @@ export async function uploadOnCloudinary(filePath) {
     return result.secure_url
   } catch (error) {
     console.log(`image upload failed! error: ${error}`)
+  } finally {
+    fs.unlinkSync(filePath)
   }
 }
